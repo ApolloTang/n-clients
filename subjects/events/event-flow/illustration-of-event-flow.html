@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>event flow</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+    <style media="screen" type="text/css">
+        /* css here */
+    </style>
+    <style type="text/less">
+        /* less goes here */
+        @c:red;
+        body {
+            background: @c;
+        }
+    </style>
+</head>
+
+<body>
+<div>click me to start event flow</div>
+<script src="http://localhost:8001/js/lib/less.v2.7.1.min.js"></script>
+<script src="http://localhost:8001/js/lib/lodash-v2.4.1.js"></script>
+<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+<script>
+//1 capture phase
+window.addEventListener('click',function(e){console.log(1, e.eventPhase, this);},true);
+
+//2 capture phase
+document.addEventListener('click',function(e){console.log(2, e.eventPhase, this);},true);
+
+//3 capture phase
+document.documentElement.addEventListener('click',function(e){console.log(3, e.eventPhase, this);},true);
+
+//4 capture phase
+document.body.addEventListener('click',function(e){console.log(4, e.eventPhase,  this);},true);
+
+//5 target phase occurs during capture phase
+document.querySelector('div').addEventListener('click',function(e){console.log(5, e.eventPhase, this);},true);
+
+//6 target phase occurs during bubbling phase
+document.querySelector('div').addEventListener('click',function(e){console.log(6, e.eventPhase, this);},false);
+
+//7 bubbling phase
+document.body.addEventListener('click',function(e){console.log(7, e.eventPhase, this);},false);
+
+//8 bubbling phase
+document.documentElement.addEventListener('click',function(e){console.log(8, e.eventPhase, this);},false);
+
+//9 bubbling phase
+document.addEventListener('click',function(e){console.log(9, e.eventPhase, this);},false);
+
+//10 bubbling phase
+window.addEventListener('click',function(e){console.log(10, e.eventPhase, this)},false);
+</script>
+</body>
+</html>
+</html>
